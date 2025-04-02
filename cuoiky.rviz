@@ -1,0 +1,17 @@
+# RViz configuration file
+Visualization Manager:
+  Displays:
+    - Class: rviz/RobotModel
+      Name: RobotModel
+    - Class: rviz/IMU
+      Name: IMU
+      Topic: /imu/data
+    - Class: rviz/Image
+      Name: Camera
+      Image Topic: /camera1/image_raw
+    - Class: rviz/Plot
+      Name: Wheel Encoder (Left)
+      Topic: /st_joint/encoder
+    - Class: rviz/Plot
+      Name: Wheel Encoder (Right)
+      Topic: /sp_joint/encoder
