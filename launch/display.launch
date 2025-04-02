@@ -1,0 +1,23 @@
+<launch>
+  <!-- Định nghĩa argument model -->
+  <arg name="model" default="cuoiky" />
+
+  <!-- Khai báo param robot_description trỏ đến file URDF -->
+  <param name="robot_description" textfile="$(find cuoiky)/urdf/cuoiky.urdf" />
+
+  <!-- Khởi động joint_state_publisher_gui -->
+  <node name="joint_state_publisher_gui" pkg="joint_state_publisher_gui" type="joint_state_publisher_gui" />
+
+  <!-- Khởi động robot_state_publisher -->
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
+
+  <!-- Khởi động RViz với file cấu hình URDF -->
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find cuoiky)/urdf.rviz" />
+
+  <!-- Khởi động Gazebo server và client -->
+  <node name="gazebo" pkg="gazebo_ros" type="gzserver" args="-s libgazebo_ros_factory.so" output="screen" />
+  <node name="gazebo_client" pkg="gazebo_ros" type="gzclient" output="screen" />
+
+  <!-- Khởi động controller node -->
+  <node name="controller_node" pkg="cuoiky" type="controller_node.py" output="screen" />
+</launch>
