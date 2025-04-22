@@ -1,0 +1,15 @@
+xe:
+  diff_drive_controller:
+    type: "diff_drive_controller/DiffDriveController"
+    left_wheel: ['tt_joint', 'st_joint']
+    right_wheel: ['tp_joint', 'sp_joint']
+    publish_rate: 50
+    pose_covariance_diagonal: [0.001, 0.001, 0.001, 0.001, 0.001, 0.01]
+    twist_covariance_diagonal: [0.001, 0.001, 0.001, 0.001, 0.001, 0.01]
+    base_frame_id: base_link
+    odom_frame_id: odom
+    enable_odom_tf: true
+    wheel_separation: 0.1784683235872754  # Khoảng cách giữa bánh trái và phải (2 * 0.0892341617936377)
+    wheel_radius: 0.0154397348342991    # Bán kính bánh xe (dựa trên origin.z của bánh)
+    cmd_vel_timeout: 0.5
+    velocity_rolling_window_size: 10

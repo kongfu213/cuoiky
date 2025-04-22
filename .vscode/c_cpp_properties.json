@@ -1,0 +1,27 @@
+{
+  "configurations": [
+    {
+      "browse": {
+        "databaseFilename": "${default}",
+        "limitSymbolsToIncludedHeaders": false
+      },
+      "includePath": [
+        "/home/kongfu/catkin_ws/devel/include/**",
+        "/opt/ros/noetic/include/**",
+        "/home/kongfu/catkin_ws/src/Robotics_PicoDegree/bringup/include/**",
+        "/home/kongfu/catkin_ws/src/darknet_ros/darknet_ros/include/**",
+        "/home/kongfu/catkin_ws/src/my_package/include/**",
+        "/home/kongfu/catkin_ws/src/turtlebot3_simulations/turtlebot3_fake/include/**",
+        "/home/kongfu/catkin_ws/src/turtlebot3_simulations/turtlebot3_gazebo/include/**",
+        "/home/kongfu/catkin_ws/src/turtlebot3/turtlebot3_slam/include/**",
+        "/usr/include/**"
+      ],
+      "name": "ROS",
+      "intelliSenseMode": "gcc-x64",
+      "compilerPath": "/usr/bin/gcc",
+      "cStandard": "gnu11",
+      "cppStandard": "c++14"
+    }
+  ],
+  "version": 4
+}

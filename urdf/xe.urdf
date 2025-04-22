@@ -1,0 +1,409 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter -->
+<robot name="xe">
+  <!-- Define common materials -->
+  <material name="LightBlue">
+    <color rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+  </material>
+  <material name="DarkGray">
+    <color rgba="0.250980392156863 0.250980392156863 0.250980392156863 1" />
+  </material>
+  <material name="Red">
+    <color rgba="1.0 0.0 0.0 1.0" />
+  </material>
+  <material name="Green">
+    <color rgba="0.0 1.0 0.0 1.0" />
+  </material>
+
+  <!-- Dummy Link (minimal definition) -->
+  <link name="dummy_link" />
+
+  <!-- Joint connecting dummy_link to base_link -->
+  <joint name="dummy_joint" type="fixed">
+    <parent link="dummy_link" />
+    <child link="base_link" />
+  </joint>
+
+  <!-- Base Link -->
+  <link name="base_link">
+    <inertial>
+      <origin xyz="0.00231377469820591 0 -0.0127754878233389" rpy="0 0 0" />
+      <mass value="1.01495221315766" />
+      <inertia ixx="0.00219108700457214" ixy="0" ixz="-4.19526244138738E-05" iyy="0.00334202017359529" iyz="0" izz="0.00522539594516251" />
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="package://xe/meshes/base_link.STL" />
+      </geometry>
+      <material name="LightBlue" />
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://xe/meshes/base_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- Xoay Link -->
+  <link name="xoay_link">
+    <inertial>
+      <origin xyz="0.0101810539261378 0 0.0372884853086085" rpy="0 0 0" />
+      <mass value="0.0515663706143591" />
+      <inertia ixx="3.16260287777223E-05" ixy="0" ixz="-1.19235452129805E-05" iyy="4.71559754664999E-05" iyz="0" izz="2.08932208116495E-05" />
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="package://xe/meshes/xoay_link.STL" />
+      </geometry>
+      <material name="LightBlue" />
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://xe/meshes/xoay_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="xoay_joint" type="fixed">
+    <origin xyz="0.0210526315789474 0 0.04" rpy="0 0 0" />
+    <parent link="base_link" />
+    <child link="xoay_link" />
+  </joint>
+
+  <!-- Tien Link -->
+  <link name="tien_link">
+    <inertial>
+      <origin xyz="0 0 -0.025" rpy="0 0 0" />
+      <mass value="0.005" />
+      <inertia ixx="1.08333333333333E-06" ixy="0" ixz="0" iyy="1.08333333333333E-06" iyz="0" izz="8.33333333333334E-08" />
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="package://xe/meshes/tien_link.STL" />
+      </geometry>
+      <material name="LightBlue" />
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://xe/meshes/tien_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="tien_joint" type="fixed">
+    <origin xyz="0.06 0 0.06" rpy="1.5707963267949 0 1.5707963267949" />
+    <parent link="xoay_link" />
+    <child link="tien_link" />
+  </joint>
+
+  <!-- TT Link -->
+  <link name="tt_link">
+    <inertial>
+      <origin xyz="0 0 -0.0154397348342991" rpy="0 0 0" />
+      <mass value="0.0458076189087287" />
+      <inertia ixx="1.88339531345938E-05" ixy="0" ixz="0" iyy="1.88344191615687E-05" iyz="0" izz="3.26467408523935E-05" />
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="package://xe/meshes/tt_link.STL" />
+      </geometry>
+      <material name="DarkGray" />
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://xe/meshes/tt_link.STL" />
+      </geometry>
+      <contact>
+        <mu1>1.0</mu1>
+        <mu2>1.0</mu2>
+      </contact>
+    </collision>
+  </link>
+
+  <joint name="tt_joint" type="continuous">
+    <origin xyz="0.0710526315789475 0.0892341617936377 -0.0169644093310364" rpy="1.57079632679491 0 0" />
+    <parent link="base_link" />
+    <child link="tt_link" />
+    <axis xyz="0 0 1" />
+    <limit effort="100" velocity="10" />
+    <dynamics damping="0.1" friction="0.1" />
+  </joint>
+
+  <transmission name="tt_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <actuator name="tt_motor">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+    <joint name="tt_joint">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+  </transmission>
+
+  <!-- TP Link -->
+  <link name="tp_link">
+    <inertial>
+      <origin xyz="0 0 0.0154397348342991" rpy="0 0 0" />
+      <mass value="0.0458076189087287" />
+      <inertia ixx="1.88339531345938E-05" ixy="0" ixz="0" iyy="1.88344191615687E-05" iyz="0" izz="3.26467408523935E-05" />
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="package://xe/meshes/tp_link.STL" />
+      </geometry>
+      <material name="DarkGray" />
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://xe/meshes/tp_link.STL" />
+      </geometry>
+      <contact>
+        <mu1>1.0</mu1>
+        <mu2>1.0</mu2>
+      </contact>
+    </collision>
+  </link>
+
+  <joint name="tp_joint" type="continuous">
+    <origin xyz="0.0710526315789475 -0.0892341617936377 -0.0169644093310364" rpy="1.5707963267949 0 0" />
+    <parent link="base_link" />
+    <child link="tp_link" />
+    <axis xyz="0  Asc="0 0 1" />
+    <limit effort="100" velocity="10" />
+    <dynamics damping="0.1" friction="0.1" />
+  </joint>
+
+  <transmission name="tp_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <actuator name="tp_motor">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+    <joint name="tp_joint">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+  </transmission>
+
+  <!-- SP Link -->
+  <link name="sp_link">
+    <inertial>
+      <origin xyz="0 0 0.015439734834299" rpy="0 0 0" />
+      <mass value="0.0458076189087287" />
+      <inertia ixx="1.88339531345937E-05" ixy="0" ixz="0" iyy="1.88344191615687E-05" iyz="0" izz="3.26467408523934E-05" />
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="package://xe/meshes/sp_link.STL" />
+      </geometry>
+      <material name="DarkGray" />
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://xe/meshes/sp_link.STL" />
+      </geometry>
+      <contact>
+        <mu1>1.0</mu1>
+        <mu2>1.0</mu2>
+      </contact>
+    </collision>
+  </link>
+
+  <joint name="sp_joint" type="continuous">
+    <origin xyz="-0.0689473684210525 -0.0892341617936378 -0.0169644093310364" rpy="1.5707963267949 0 0" />
+    <parent link="base_link" />
+    <child link="sp_link" />
+    <axis xyz="0 0 -1" />
+    <limit effort="100" velocity="10" />
+    <dynamics damping="0.1" friction="0.1" />
+  </joint>
+
+  <transmission name="sp_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <actuator name="sp_motor">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+    <joint name="sp_joint">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+  </transmission>
+
+  <!-- ST Link -->
+  <link name="st_link">
+    <inertial>
+      <origin xyz="0 0 -0.0154397348342987" rpy="0 0 0" />
+      <mass value="0.0458076189087286" />
+      <inertia ixx="1.88339531345937E-05" ixy="0" ixz="0" iyy="1.88344191615687E-05" iyz="0" izz="3.26467408523934E-05" />
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="package://xe/meshes/st_link.STL" />
+      </geometry>
+      <material name="DarkGray" />
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://xe/meshes/st_link.STL" />
+      </geometry>
+      <contact>
+        <mu1>1.0</mu1>
+        <mu2>1.0</mu2>
+      </contact>
+    </collision>
+  </link>
+
+  <joint name="st_joint" type="continuous">
+    <origin xyz="-0.0689473684210519 0.0892341617936382 -0.0169644093310359" rpy="1.57079632679491 0 0" />
+    <parent link="base_link" />
+    <child link="st_link" />
+    <axis xyz="0 0 -1" />
+    <limit effort="100" velocity="10" />
+    <dynamics damping="0.1" friction="0.1" />
+  </joint>
+
+  <transmission name="st_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <actuator name="st_motor">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+    <joint name="st_joint">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+  </transmission>
+
+  <!-- Camera Link -->
+  <link name="camera_link">
+    <inertial>
+      <origin xyz="0.005 0 0" rpy="0 0 0" />
+      <mass value="0.001" />
+      <inertia ixx="1.66666666666667E-08" ixy="0" ixz="0" iyy="1.66666666666667E-08" iyz="0" izz="1.66666666666667E-08" />
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="package://xe/meshes/camera_link.STL" />
+      </geometry>
+      <material name="LightBlue" />
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://xe/meshes/camera_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="camera_joint" type="fixed">
+    <origin xyz="0.10105 0.0033181 -0.005" rpy="1.5708 0 0" />
+    <parent link="base_link" />
+    <child link="camera_link" />
+  </joint>
+
+  <!-- IMU Link -->
+  <link name="imu_link">
+    <inertial>
+      <origin xyz="0.005 0 0" rpy="0 0 0" />
+      <mass value="0.001" />
+      <inertia ixx="1.66666666666667E-08" ixy="0" ixz="0" iyy="1.66666666666667E-08" iyz="0" izz="1.66666666666667E-08" />
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="package://xe/meshes/imu_link.STL" />
+      </geometry>
+      <material name="LightBlue" />
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://xe/meshes/imu_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="imu_joint" type="fixed">
+    <origin xyz="0.041053 -0.00054419 0.035" rpy="1.5708 0 0" />
+    <parent link="base_link" />
+    <child link="imu_link" />
+  </joint>
+
+  <!-- Gazebo IMU Plugin -->
+  <gazebo reference="imu_link">
+    <sensor name="imu_sensor" type="imu">
+      <always_on>true</always_on>
+      <update_rate>100</update_rate>
+      <visualize>false</visualize>
+      <plugin name="imu_plugin" filename="libgazebo_ros_imu_sensor.so">
+        <topicName>/imu</topicName>
+        <frameName>imu_link</frameName>
+        <updateRateHZ>100.0</updateRateHZ>
+        <gaussianNoise>0.0</gaussianNoise>
+        <xyzOffset>0 0 0</xyzOffset>
+        <rpyOffset>0 0 0</rpyOffset>
+      </plugin>
+    </sensor>
+  </gazebo>
+
+  <!-- Lidar Link -->
+  <link name="lidar_link">
+    <inertial>
+      <origin xyz="0 0 0.005" rpy="0 0 0" />
+      <mass value="0.001" />
+      <inertia ixx="1.66666666666667E-08" ixy="0" ixz="0" iyy="1.66666666666667E-08" iyz="0" izz="1.66666666666667E-08" />
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="package://xe/meshes/lidar_link.STL" />
+      </geometry>
+      <material name="LightBlue" />
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://xe/meshes/lidar_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="lidar_joint" type="fixed">
+    <origin xyz="0.046053 0 0.11" rpy="0 0 3.1416" />
+    <parent link="base_link" />
+    <child link="lidar_link" />
+  </joint>
+
+  <!-- Gazebo Lidar Plugin -->
+  <gazebo reference="lidar_link">
+    <sensor name="lidar" type="ray">
+      <pose>0 0 0 0 0 0</pose>
+      <visualize>true</visualize>
+      <update_rate>10</update_rate>
+      <ray>
+        <scan>
+          <horizontal>
+            <samples>360</samples>
+            <resolution>1</resolution>
+            <min_angle>-3.1416</min_angle>
+            <max_angle>3.1416</max_angle>
+          </horizontal>
+        </scan>
+        <range>
+          <min>0.1</min>
+          <max>10.0</max>
+          <resolution>0.01</resolution>
+        </range>
+        <noise>
+          <type>gaussian</type>
+          <mean>0.0</mean>
+          <stddev>0.01</stddev>
+        </noise>
+      </ray>
+      <plugin name="lidar_plugin" filename="libgazebo_ros_laser.so">
+        <topicName>/scan</topicName>
+        <frameName>lidar_link</frameName>
+      </plugin>
+    </sensor>
+  </gazebo>
+
+  <!-- Gazebo ROS Control Plugin -->
+  <gazebo>
+    <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+      <robotNamespace>/xe</robotNamespace>
+    </plugin>
+  </gazebo>
+</robot>

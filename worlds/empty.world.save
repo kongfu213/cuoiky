@@ -1,0 +1,2 @@
+ty.world ~/catkin_ws/src/xe/worlds/kongfu@kongfu-Nitro-AN515-58:~/catkin_ws$ cp /path/to/empty.world ~/catkin_ws/src/xe/worlds/
+cp: cannot stat '/path/to/empty.world': No such file or directory
