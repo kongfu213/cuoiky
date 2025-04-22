@@ -1,0 +1,14 @@
+<?xml version="1.0" ?>
+<sdf version="1.6">
+  <world name="default">
+    <!-- Include the default ground plane -->
+    <include>
+      <uri>model://ground_plane</uri>
+    </include>
+
+    <!-- Include the default sun -->
+    <include>
+      <uri>model://sun</uri>
+    </include>
+  </world>
+</sdf>
